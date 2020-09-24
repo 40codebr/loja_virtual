@@ -26,6 +26,21 @@ class ProductScreen extends StatelessWidget {
             IconButton(icon: Icon(Icons.shopping_cart),
             onPressed: () =>  Navigator.of(context).pushNamed('/cart')            
             ),
+            Consumer<UserManager>(
+              builder: (_, userManager, __){
+                if(userManager.adminEnabled){
+                  return IconButton(
+                    icon: Icon(Icons.edit),
+                    onPressed: (){
+                      Navigator.of(context).pushReplacementNamed('/edit_product',
+                      arguments: product);
+                    },
+                  );
+                } else {
+                  return SizedBox.shrink();
+                }
+              },
+            )
           ],
         ),
         body: ListView(

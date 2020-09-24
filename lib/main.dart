@@ -10,8 +10,10 @@ import 'package:loja_virtual/screens/base/base.dart';
 import 'package:loja_virtual/models/user_manager.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:loja_virtual/models/products_manager.dart';
+import 'package:loja_virtual/models/admin_users_manager.dart';
 import 'package:loja_virtual/screens/login/login_screen.dart';
 import 'package:loja_virtual/screens/signup/signup_screen.dart';
+import 'package:loja_virtual/screens/edit_product/edit_product_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -70,6 +72,12 @@ class MyApp extends StatelessWidget {
           update: (_, userManager, cartManager) => 
           cartManager..updateUser(userManager),
         ),
+        ChangeNotifierProxyProvider<UserManager, AdminUsersManager>(
+          create: (_) => AdminUsersManager(),
+          lazy: false,
+          update: (_, userManager, adminUsersManager) =>
+            adminUsersManager..updateUser(userManager),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -96,6 +104,12 @@ class MyApp extends StatelessWidget {
             case '/product':
               return MaterialPageRoute(
                 builder: (_) => ProductScreen(
+                  settings.arguments as Product
+                )
+              );
+            case '/edit_product':
+              return MaterialPageRoute(
+                builder: (_) => EditProductScreen(
                   settings.arguments as Product
                 )
               );
