@@ -69,7 +69,7 @@ class Product extends ChangeNotifier {
   num get basePrice {
     num lowest = double.infinity;
     for(final size in sizes){
-      if(size.price < lowest)
+      if(size.price < lowest && size.hasStock)
         lowest = size.price;
     }
     return lowest;

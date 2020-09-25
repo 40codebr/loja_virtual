@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+// import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:loja_virtual/helpers/firebase_errors.dart';
 import 'user_model.dart';
 
@@ -47,7 +47,7 @@ class UserManager extends ChangeNotifier {
     loading = false;
   }
 
-  Future<void> facebookLogin({Function onFail, Function onSuccess}) async {
+  /* Future<void> facebookLogin({Function onFail, Function onSuccess}) async {
     loadingFace = true;
 
     final result = await FacebookLogin().logIn(['email', 'public_profile']);
@@ -84,7 +84,7 @@ class UserManager extends ChangeNotifier {
     }
 
     loadingFace = false;
-  }
+  } */
 
   Future<void> signUp(
       {UserModel user, Function onFail, Function onSuccess}) async {
