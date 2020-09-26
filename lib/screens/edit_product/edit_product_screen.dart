@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/screens/edit_product/components/images_form.dart';
 import 'package:loja_virtual/models/product.dart';
+import 'package:loja_virtual/screens/edit_product/components/sizes_form.dart';
 
 class EditProductScreen extends StatelessWidget {
   EditProductScreen(this.product);
@@ -72,7 +73,7 @@ class EditProductScreen extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                  ),
+                  ),                  
                   TextFormField(
                     initialValue: product.description,
                     decoration: const InputDecoration(
@@ -90,17 +91,7 @@ class EditProductScreen extends StatelessWidget {
                       return null;
                     },
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top:16.0, bottom: 8.0),
-                    child: Text(
-                      'Tamanhos:',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
+                  SizesForm(product),
                   RaisedButton(
                     onPressed: () {
                       if (formKey.currentState.validate()) {
