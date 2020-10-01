@@ -162,6 +162,6 @@ class AddressInputField extends StatelessWidget {
                 '${address.city} - ${address.state}'
         ),
       );
-    else return Container();
+    else return SizedBox.shrink();
   }
 }

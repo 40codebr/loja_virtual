@@ -38,7 +38,7 @@ class _CepInputFieldState extends State<CepInputField> {
               hintText: '12.345-678'
             ),
             inputFormatters: [
-              WhitelistingTextInputFormatter.digitsOnly,
+              FilteringTextInputFormatter.digitsOnly,
               CepInputFormatter(),
             ],
             keyboardType: TextInputType.number,
