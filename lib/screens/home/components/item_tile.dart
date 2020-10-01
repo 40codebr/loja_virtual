@@ -40,7 +40,7 @@ class ItemTile extends StatelessWidget {
                     contentPadding: EdgeInsets.zero,
                     leading: Image.network(product.images.first),
                     title: Text(product.name),
-                    subtitle: Text('R\$ ${product.basePrice.toStringAsFixed(2)}'),
+                    subtitle: Text('R\$${product.basePrice.toStringAsFixed(2)}'),
                 )
                 : null,
               actions: <Widget>[

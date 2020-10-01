@@ -1,0 +1,37 @@
+import 'package:flutter/material.dart';
+import 'package:loja_virtual/models/products_manager.dart';
+import 'package:provider/provider.dart';
+
+class SelectProductScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Vincular produto'),
+        centerTitle: true,
+      ),
+      body: Consumer<ProductsManager>(
+        builder: (_, productManager, __){
+          return ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            itemCount: productManager.allProducts.length,
+            itemBuilder: (_, index){
+              final product = productManager.allProducts[index];
+              return Card(
+                elevation: 5,
+                child: ListTile(
+                  leading: Image.network(product.images.first),
+                  title: Text(product.name),
+                  subtitle: Text(
+                    'R\$${product.basePrice.toStringAsFixed(2)}'
+                  ),
+                  onTap: () => Navigator.of(context).pop(product),
+                ),
+              );
+            },
+          );
+        }
+      ),
+    );
+  }
+}

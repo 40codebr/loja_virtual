@@ -17,6 +17,7 @@ class PriceCard extends StatelessWidget {
     final totalPrice = cartManager.totalPrice;
 
     return Card(
+      elevation: 12,
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
@@ -24,7 +25,7 @@ class PriceCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Text(
-              'Resumo do Pedido',
+              'Resumo do pedido',
               textAlign: TextAlign.start,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
@@ -36,7 +37,7 @@ class PriceCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 const Text('Subtotal'),
-                Text('R\$ ${productsPrice.toStringAsFixed(2)}')
+                Text('R\$${productsPrice.toStringAsFixed(2)}')
               ],
             ),
             const Divider(),
@@ -46,7 +47,7 @@ class PriceCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     const Text('Entrega'),
-                    Text('R\$ ${deliveryPrice.toStringAsFixed(2)}')
+                    Text('R\$${deliveryPrice.toStringAsFixed(2)}')
                   ],
                 ),
                 const Divider(),

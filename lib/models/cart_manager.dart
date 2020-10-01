@@ -1,14 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:loja_virtual/models/address.dart';
 import 'package:loja_virtual/models/cart_product.dart';
 import 'package:loja_virtual/models/product.dart';
 import 'package:loja_virtual/models/user_manager.dart';
 import 'package:loja_virtual/models/user_model.dart';
+import 'package:loja_virtual/services/cep_aberto_services.dart';
+import 'package:geolocator/geolocator.dart';
 
 class CartManager extends ChangeNotifier {
   List<CartProduct> items = [];
 
   UserModel user;
+  Address address;
   num productsPrice = 0.0;
   num deliveryPrice;
 
@@ -94,4 +98,63 @@ class CartManager extends ChangeNotifier {
     }
     return true;
   }
+
+  Future<void> getAddress(String cep) async {
+    final cepAbertoService = CepAbertoService();
+    
+    try {
+      final cepAbertoAddress = await cepAbertoService.getAddressFromCep(cep);
+      
+      if(cepAbertoAddress != null){
+        address = Address(
+          street: cepAbertoAddress.logradouro,
+          district: cepAbertoAddress.bairro,
+          zipCode: cepAbertoAddress.cep,
+          city: cepAbertoAddress.cidade.nome,
+          state: cepAbertoAddress.estado.sigla,
+          lat: cepAbertoAddress.latitude,
+          long: cepAbertoAddress.longitude
+        );
+        notifyListeners();
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  Future<void> setAddress(Address address) async {
+    this.address = address;
+    if(await calculateDelivery(address.lat, address.long)){
+
+    } else {
+      return Future.error('Endereço fora do raio de entrega :\'(');
+    }
+  }
+
+  void removeAddress(){
+    address = null;
+    notifyListeners();
+  }
+
+  Future<bool> calculateDelivery(double lat, double long) async {
+      final DocumentSnapshot doc = await firestore.doc('aux/delivery').get();
+
+      final latStore = doc.data()['lat'] as double;
+      final longStore = doc.data()['long'] as double;
+
+      final base = doc.data()['base'] as num;
+      final km = doc.data()['km'] as num;
+      final maxkm = doc.data()['maxkm'] as num;
+
+      double dis = await GeolocatorPlatform.instance.distanceBetween(latStore, longStore, lat, long);
+
+      dis /= 1000.0;
+
+      if(dis > maxkm){
+        return false;
+      }
+
+      deliveryPrice = base + dis * km;
+      return true;
+    }
 }

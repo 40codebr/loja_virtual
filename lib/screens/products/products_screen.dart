@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
 import 'package:loja_virtual/models/products_manager.dart';
+import 'package:loja_virtual/models/user_manager.dart';
 import 'package:loja_virtual/screens/products/components/products_list_tile.dart';
 import 'package:loja_virtual/screens/products/components/search_dialog.dart';
 import 'package:provider/provider.dart';
@@ -70,7 +71,21 @@ class ProductsScreen extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.shopping_cart),
             onPressed: () => Navigator.of(context).pushNamed('/cart'),
-          )
+          ),
+          Consumer<UserManager>(
+              builder: (_, userManager, __){
+                if(userManager.adminEnabled){
+                  return IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: (){
+                      Navigator.of(context).pushNamed('/edit_product');
+                    },
+                  );
+                } else {
+                  return SizedBox.shrink();
+                }
+              },
+            )
         ],
       ),
       body: Consumer<ProductsManager>(

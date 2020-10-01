@@ -14,6 +14,7 @@ class CartTile extends StatelessWidget {
     return ChangeNotifierProvider.value(
       value: cartProduct,
       child: Card(
+        elevation: 12,
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

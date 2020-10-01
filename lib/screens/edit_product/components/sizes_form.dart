@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:loja_virtual/common/custom_icon_button.dart';
-import 'package:loja_virtual/models/item_size.dart';
 import 'package:loja_virtual/models/product.dart';
+import 'package:loja_virtual/models/item_size.dart';
+import 'package:loja_virtual/common/custom_icon_button.dart';
 import 'package:loja_virtual/screens/edit_product/components/edit_item_size.dart';
 
 class SizesForm extends StatelessWidget {
@@ -12,34 +12,38 @@ class SizesForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FormField<List<ItemSize>>(
-        initialValue: List.from(product.sizes),
-        builder: (state) {
-          return Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Tamanhos:',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w500,
-                      ),
+      initialValue: product.sizes,
+      validator: (sizes) {
+        if (sizes.isEmpty) return 'Insira um tamanho.';
+        return null;
+      },
+      builder: (state) {
+        return Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'Tamanhos:',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  CustomIconButton(
-                    iconData: Icons.add,
-                    color: Colors.black,
-                    onTap: (){
-                      state.value.add(ItemSize());
-                      state.didChange(state.value);
-                    },
-                  )
-                ],
-              ),
-              Column(
-                  children: state.value.map((size) {
+                ),
+                CustomIconButton(
+                  iconData: Icons.add,
+                  color: Colors.black,
+                  onTap: () {
+                    state.value.add(ItemSize());
+                    state.didChange(state.value);
+                  },
+                )
+              ],
+            ),
+            Column(
+              children: state.value.map((size) {
                 return EditItemSize(
                   key: ObjectKey(size),
                   size: size,
@@ -47,22 +51,41 @@ class SizesForm extends StatelessWidget {
                     state.value.remove(size);
                     state.didChange(state.value);
                   },
-                  onMoveUp: size != state.value.first ? () {
-                    final index = state.value.indexOf(size);
-                    state.value.remove(size);
-                    state.value.insert(index-1, size);
-                    state.didChange(state.value);
-                  } : null,
-                  onMoveDown: size != state.value.last ? () {
-                    final index = state.value.indexOf(size);
-                    state.value.remove(size);
-                    state.value.insert(index+1, size);
-                    state.didChange(state.value);
-                  } : null,
+                  onMoveUp: size != state.value.first
+                      ? () {
+                          final index = state.value.indexOf(size);
+                          state.value.remove(size);
+                          state.value.insert(index - 1, size);
+                          state.didChange(state.value);
+                        }
+                      : null,
+                  onMoveDown: size != state.value.last
+                      ? () {
+                          final index = state.value.indexOf(size);
+                          state.value.remove(size);
+                          state.value.insert(index + 1, size);
+                          state.didChange(state.value);
+                        }
+                      : null,
                 );
-              }).toList()),
-            ],
-          );
-        });
+              }).toList(),
+            ),
+            if(state.hasError)
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(12.0),
+                color: Colors.white10,
+                child: Text(
+                  state.errorText,
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontSize: 15,
+                  ),
+                ),
+              )
+          ],
+        );
+      },
+    );
   }
 }

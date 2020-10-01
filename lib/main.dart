@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:loja_virtual/models/cart_manager.dart';
 import 'package:loja_virtual/models/home_manager.dart';
 import 'package:loja_virtual/models/product.dart';
+import 'package:loja_virtual/screens/address/address_screen.dart';
 import 'package:loja_virtual/screens/cart/cart_screen.dart';
 import 'package:loja_virtual/screens/product/product_screen.dart';
+import 'package:loja_virtual/screens/select_product/select_product_screen.dart';
+import 'package:loja_virtual/services/cep_aberto_services.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:loja_virtual/screens/base/base.dart';
@@ -84,9 +87,27 @@ class MyApp extends StatelessWidget {
         title: 'Loja virtual',
         theme: ThemeData(
           primaryColor: Color(0xFFB42827),
-          scaffoldBackgroundColor: Color(0xFF2B292A),
+          // scaffoldBackgroundColor: Color(0xFF2B292A),
+          scaffoldBackgroundColor: Color(0xFFF1F5F8),
+          primaryTextTheme: Theme.of(context).primaryTextTheme.apply(bodyColor: Colors.grey[700]),
           appBarTheme: const AppBarTheme(
+            /* textTheme: TextTheme(
+              headline6: TextStyle(
+                color: Colors.grey,
+                fontSize: 20
+              ),
+              bodyText2: TextStyle(color: Colors.black)
+            ), */
+            centerTitle: true,
+            brightness: Brightness.dark,
             elevation: 0,
+            actionsIconTheme: IconThemeData(
+              color: Colors.black,
+            ),
+            color: Colors.transparent,
+            iconTheme: IconThemeData(
+              color: Colors.black,
+            ),
           ),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
@@ -113,9 +134,17 @@ class MyApp extends StatelessWidget {
                   settings.arguments as Product
                 )
               );
+            case '/select_product':
+              return MaterialPageRoute(
+                builder: (_) => SelectProductScreen()
+              );
             case '/cart':
               return MaterialPageRoute(
                 builder: (_) => CartScreen()
+              );
+            case '/address':
+              return MaterialPageRoute(
+                builder: (_) => AddressScreen()
               );
             case '/base':
               return MaterialPageRoute(
