@@ -5,6 +5,7 @@ import 'package:loja_virtual/models/home_manager.dart';
 import 'package:loja_virtual/models/order.dart';
 import 'package:loja_virtual/models/orders_manager.dart';
 import 'package:loja_virtual/models/product.dart';
+import 'package:loja_virtual/models/stores_manager.dart';
 import 'package:loja_virtual/screens/address/address_screen.dart';
 import 'package:loja_virtual/screens/cart/cart_screen.dart';
 import 'package:loja_virtual/screens/checkout/checkout_screen.dart';
@@ -15,7 +16,6 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:loja_virtual/screens/base/base.dart';
 import 'package:loja_virtual/models/user_manager.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:loja_virtual/models/products_manager.dart';
 import 'package:loja_virtual/models/admin_users_manager.dart';
 import 'package:loja_virtual/screens/login/login_screen.dart';
@@ -62,10 +62,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => HomeManager(),
-          lazy: false,
-        ),
-        ChangeNotifierProvider(
           create: (_) => UserManager(),
           lazy: false,
         ),
@@ -73,17 +69,24 @@ class MyApp extends StatelessWidget {
           create: (_) => ProductsManager(),
           lazy: false,
         ),
-        ChangeNotifierProxyProvider<UserManager, OrdersManager>(
-          create: (_) => OrdersManager(),
+        ChangeNotifierProvider(
+          create: (_) => HomeManager(),
           lazy: false,
-          update: (_, userManager, ordersManager) => 
-            ordersManager..updateUser(userManager.user),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => StoresManager(),
         ),
         ChangeNotifierProxyProvider<UserManager, CartManager>(
           create: (_) => CartManager(),
           lazy: false,
-          update: (_, userManager, cartManager) => 
+          update: (_, userManager, cartManager) =>
             cartManager..updateUser(userManager),
+        ),
+        ChangeNotifierProxyProvider<UserManager, OrdersManager>(
+          create: (_) => OrdersManager(),
+          lazy: false,
+          update: (_, userManager, ordersManager) =>
+            ordersManager..updateUser(userManager.user),
         ),
         ChangeNotifierProxyProvider<UserManager, AdminUsersManager>(
           create: (_) => AdminUsersManager(),
