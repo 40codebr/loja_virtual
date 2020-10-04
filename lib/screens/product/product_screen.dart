@@ -21,7 +21,6 @@ class ProductScreen extends StatelessWidget {
           title: Text(
             product.name
           ),
-          centerTitle: true,
           actions: [
             IconButton(icon: Icon(Icons.shopping_cart),
             onPressed: () =>  Navigator.of(context).pushNamed('/cart')            
@@ -46,7 +45,7 @@ class ProductScreen extends StatelessWidget {
         body: ListView(
           children: [
             AspectRatio(
-              aspectRatio: 1.5,
+              aspectRatio: 1.2,
               child: Carousel(
                 images: product.images.map((e) => NetworkImage(e)).toList(),
                 dotSize: 4,
@@ -66,7 +65,7 @@ class ProductScreen extends StatelessWidget {
                     product.name,
                     style: TextStyle(
                       fontSize: 20,
-                      color: Colors.white,
+                      color: primaryColor,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -104,13 +103,13 @@ class ProductScreen extends StatelessWidget {
                     product.description,
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.white,
+                      color: primaryColor,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top:16.0, bottom: 8.0),
                     child: Text(
-                      'Tamanhos:',
+                      'Opções:',
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.grey,

@@ -3,7 +3,8 @@ import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
 import 'package:loja_virtual/common/empty_card.dart';
 import 'package:loja_virtual/common/login_card.dart';
 import 'package:loja_virtual/models/orders_manager.dart';
-import 'package:loja_virtual/screens/orders/components/orders_tile.dart';
+// import 'package:loja_virtual/screens/orders/components/orders_tile.dart';
+import 'package:loja_virtual/common/order/order_tile.dart';
 import 'package:provider/provider.dart';
 
 class OrdersScreen extends StatelessWidget {
@@ -28,7 +29,7 @@ class OrdersScreen extends StatelessWidget {
           return ListView.builder(
             itemCount: ordersManager.orders.length,
             itemBuilder: (_, index){
-              return OrdersTile(
+              return OrderTile(
                 ordersManager.orders.reversed.toList()[index]
               );
             },

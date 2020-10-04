@@ -11,6 +11,7 @@ class AddTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final section = context.watch<Section>();
+    final primaryColor = Theme.of(context).primaryColor;
 
     void onImageSelected(File file){
       section.addItem(SectionItem(image: file));
@@ -36,10 +37,11 @@ class AddTileWidget extends StatelessWidget {
           }
         },
         child: Container(
-          color: Colors.white.withAlpha(30),
+          color: primaryColor.withAlpha(30),
           child: Icon(
             Icons.add,
-            color: Colors.white,
+            color: primaryColor,
+            size: 32,
           ),
         ),
       ),

@@ -10,11 +10,12 @@ import 'package:provider/provider.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final primaryColor = Theme.of(context).primaryColor;
     return Scaffold(
       drawer: CustomDrawer(),
       body: Stack(
         children: <Widget>[
-          Container(
+          /* Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: const [
@@ -25,7 +26,7 @@ class HomeScreen extends StatelessWidget {
                 end: Alignment.bottomCenter
               )
             ),
-          ),
+          ), */
           CustomScrollView(
             slivers: <Widget>[
               SliverAppBar(
@@ -40,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                 actions: <Widget>[
                   IconButton(
                     icon: Icon(Icons.shopping_cart),
-                    color: Colors.white,
+                    color: primaryColor,
                     onPressed: () => Navigator.of(context).pushNamed('/cart'),
                   ),
                   Consumer2<UserManager, HomeManager>(

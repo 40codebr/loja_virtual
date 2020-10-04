@@ -10,6 +10,7 @@ class SectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeManager = context.watch<HomeManager>();
     final section = context.watch<Section>();
+    final primaryColor = Theme.of(context).primaryColor;
 
     if(homeManager.editing){
       return Column(
@@ -26,7 +27,7 @@ class SectionHeader extends StatelessWidget {
                     border: InputBorder.none
                   ),
                   style: TextStyle(
-                    color: Colors.white,
+                    color: primaryColor,
                     fontWeight: FontWeight.w800,
                     fontSize: 18,
                   ),
@@ -35,7 +36,7 @@ class SectionHeader extends StatelessWidget {
               ),
               CustomIconButton(
                 iconData: Icons.remove,
-                color: Colors.white,
+                color: primaryColor,
                 onTap: (){
                   homeManager.removeSection(section);
                 },
@@ -60,7 +61,7 @@ class SectionHeader extends StatelessWidget {
         child: Text(
           section.name ?? "Banana",
           style: TextStyle(
-            color: Colors.white,
+            color: primaryColor,
             fontWeight: FontWeight.w800,
             fontSize: 18,
           ),

@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 class AdminUsersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+  final primaryColor = Theme.of(context).primaryColor;
+
     return Scaffold(
       drawer: CustomDrawer(),
       appBar: AppBar(
@@ -23,23 +25,23 @@ class AdminUsersScreen extends StatelessWidget {
                 title: Text(
                   adminUsersManager.users[index].name,
                   style: TextStyle(
-                      fontWeight: FontWeight.w800, color: Colors.white),
+                      fontWeight: FontWeight.w800, color: primaryColor),
                 ),
                 subtitle: Text(
                   adminUsersManager.users[index].email,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: primaryColor,
                   ),
                 ),
                 onTap: () {
-                  // context
-                  //     .read<AdminOrdersManager>()
-                  //     .setUserFilter(adminUsersManager.users[index]);
+                  context
+                      .read<AdminOrdersManager>()
+                      .setUserFilter(adminUsersManager.users[index]);
                   context.read<PageManager>().setPage(5);
                 },
               );
             },
-            highlightTextStyle: TextStyle(color: Colors.white, fontSize: 20),
+            highlightTextStyle: TextStyle(color: primaryColor, fontSize: 20),
             indexedHeight: (index) => 80,
             strList: adminUsersManager.names,
             showPreview: true,

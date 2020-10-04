@@ -10,6 +10,7 @@ class AddSectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor = Theme.of(context).primaryColor;
     return Row(
       children: <Widget>[
         Expanded(
@@ -17,7 +18,7 @@ class AddSectionWidget extends StatelessWidget {
             onPressed: (){
               homeManager.addSection(Section(type: 'List'));
             },
-            textColor: Colors.white,
+            textColor: primaryColor,
             child: const Text('Adicionar Lista'),
           ),
         ),
@@ -26,7 +27,7 @@ class AddSectionWidget extends StatelessWidget {
             onPressed: (){
               homeManager.addSection(Section(type: 'Staggered'));
             },
-            textColor: Colors.white,
+            textColor: primaryColor,
             child: const Text('Adicionar Grade'),
           ),
         ),

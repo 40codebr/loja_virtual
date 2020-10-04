@@ -23,7 +23,6 @@ class _AdminOrdersScreenState extends State<AdminOrdersScreen> {
       drawer: CustomDrawer(),
       appBar: AppBar(
         title: const Text('Todos os Pedidos'),
-        centerTitle: true,
       ),
       body: Consumer<AdminOrdersManager>(
         builder: (_, ordersManager, __){
