@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/models/admin_orders_manager.dart';
 import 'package:loja_virtual/models/cart_manager.dart';
 import 'package:loja_virtual/models/home_manager.dart';
+import 'package:loja_virtual/models/order.dart';
+import 'package:loja_virtual/models/orders_manager.dart';
 import 'package:loja_virtual/models/product.dart';
 import 'package:loja_virtual/screens/address/address_screen.dart';
 import 'package:loja_virtual/screens/cart/cart_screen.dart';
 import 'package:loja_virtual/screens/checkout/checkout_screen.dart';
+import 'package:loja_virtual/screens/confirmation/confirmation_screen.dart';
 import 'package:loja_virtual/screens/product/product_screen.dart';
 import 'package:loja_virtual/screens/select_product/select_product_screen.dart';
-import 'package:loja_virtual/services/cep_aberto_services.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:loja_virtual/screens/base/base.dart';
@@ -70,11 +73,17 @@ class MyApp extends StatelessWidget {
           create: (_) => ProductsManager(),
           lazy: false,
         ),
+        ChangeNotifierProxyProvider<UserManager, OrdersManager>(
+          create: (_) => OrdersManager(),
+          lazy: false,
+          update: (_, userManager, ordersManager) => 
+            ordersManager..updateUser(userManager.user),
+        ),
         ChangeNotifierProxyProvider<UserManager, CartManager>(
           create: (_) => CartManager(),
           lazy: false,
           update: (_, userManager, cartManager) => 
-          cartManager..updateUser(userManager),
+            cartManager..updateUser(userManager),
         ),
         ChangeNotifierProxyProvider<UserManager, AdminUsersManager>(
           create: (_) => AdminUsersManager(),
@@ -82,12 +91,21 @@ class MyApp extends StatelessWidget {
           update: (_, userManager, adminUsersManager) =>
             adminUsersManager..updateUser(userManager),
         ),
+        ChangeNotifierProxyProvider<UserManager, AdminOrdersManager>(
+          create: (_) => AdminOrdersManager(),
+          lazy: false,
+          update: (_, userManager, adminOrdersManager) =>
+            adminOrdersManager..updateAdmin(
+              adminEnabled: userManager.adminEnabled
+            ),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Loja virtual',
         theme: ThemeData(
-          primaryColor: Color(0xFFB42827),
+          // primaryColor: Color(0xFFB42827),
+          primaryColor: Color(0xFF2B292A),
           // scaffoldBackgroundColor: Color(0xFF2B292A),
           scaffoldBackgroundColor: Color(0xFFF1F5F8),
           primaryTextTheme: Theme.of(context).primaryTextTheme.apply(bodyColor: Colors.grey[700]),
@@ -151,6 +169,12 @@ class MyApp extends StatelessWidget {
             case '/checkout':
               return MaterialPageRoute(
                 builder: (_) => CheckoutScreen()
+              );
+            case '/confirmation':
+              return MaterialPageRoute(
+                builder: (_) => ConfirmationScreen(
+                  settings.arguments as Order
+                ),
               );
             case '/base':
               return MaterialPageRoute(

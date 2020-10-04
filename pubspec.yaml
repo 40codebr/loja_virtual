@@ -44,6 +44,10 @@ dependencies:
   dio: ^3.0.10
   brasil_fields: ^0.4.0
   geolocator: ^6.0.0+4
+  cloud_functions: ^0.6.0+1
+  credit_card_type_detector: ^1.1.0
+  gallery_saver: ^2.0.1
+  screenshot: ^0.2.0
 
 dev_dependencies:
   flutter_test:

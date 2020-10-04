@@ -1,9 +1,9 @@
-/* import 'dart:async';
+import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:loja_virtual/models/order.dart';
 import 'package:loja_virtual/models/user_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AdminOrdersManager extends ChangeNotifier {
 
@@ -79,4 +79,4 @@ class AdminOrdersManager extends ChangeNotifier {
     _subscription?.cancel();
   }
 
-} */
+}

@@ -172,7 +172,7 @@ class CartManager extends ChangeNotifier {
       final km = doc.data()['km'] as num;
       final maxkm = doc.data()['maxkm'] as num;
 
-      double dis = await GeolocatorPlatform.instance.distanceBetween(latStore, longStore, lat, long);
+      double dis = GeolocatorPlatform.instance.distanceBetween(latStore, longStore, lat, long);
 
       dis /= 1000.0;
 
