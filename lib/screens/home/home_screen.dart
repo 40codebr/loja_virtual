@@ -15,18 +15,18 @@ class HomeScreen extends StatelessWidget {
       drawer: CustomDrawer(),
       body: Stack(
         children: <Widget>[
-          /* Container(
+          Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: const [
-                  Color.fromARGB(255, 211, 118, 130),
-                  Color.fromARGB(255, 253, 181, 168)
+                colors: [
+                  primaryColor,
+                  Color(0xFFE5E8EF)
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter
               )
             ),
-          ), */
+          ),
           CustomScrollView(
             slivers: <Widget>[
               SliverAppBar(
@@ -41,7 +41,6 @@ class HomeScreen extends StatelessWidget {
                 actions: <Widget>[
                   IconButton(
                     icon: Icon(Icons.shopping_cart),
-                    color: primaryColor,
                     onPressed: () => Navigator.of(context).pushNamed('/cart'),
                   ),
                   Consumer2<UserManager, HomeManager>(

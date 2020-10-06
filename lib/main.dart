@@ -12,6 +12,7 @@ import 'package:loja_virtual/screens/checkout/checkout_screen.dart';
 import 'package:loja_virtual/screens/confirmation/confirmation_screen.dart';
 import 'package:loja_virtual/screens/product/product_screen.dart';
 import 'package:loja_virtual/screens/select_product/select_product_screen.dart';
+import 'package:loja_virtual/utils/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:loja_virtual/screens/base/base.dart';
@@ -106,34 +107,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Loja virtual',
-        theme: ThemeData(
-          // primaryColor: Color(0xFFB42827),
-          primaryColor: Color(0xFF2B292A),
-          // scaffoldBackgroundColor: Color(0xFF2B292A),
-          scaffoldBackgroundColor: Color(0xFFF1F5F8),
-          primaryTextTheme: Theme.of(context).primaryTextTheme.apply(bodyColor: Colors.grey[700]),
-          appBarTheme: const AppBarTheme(
-            /* textTheme: TextTheme(
-              headline6: TextStyle(
-                color: Colors.grey,
-                fontSize: 20
-              ),
-              bodyText2: TextStyle(color: Colors.black)
-            ), */
-            centerTitle: true,
-            brightness: Brightness.dark,
-            elevation: 0,
-            actionsIconTheme: IconThemeData(
-              color: Colors.black,
-            ),
-            color: Colors.transparent,
-            iconTheme: IconThemeData(
-              color: Colors.black,
-            ),
-          ),
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        initialRoute: '/base',
+        theme: base,
         onGenerateRoute: (settings) {
           switch(settings.name) {
             case '/signup':
@@ -179,7 +153,7 @@ class MyApp extends StatelessWidget {
                   settings.arguments as Order
                 ),
               );
-            case '/base':
+            case '/':
               return MaterialPageRoute(
                 builder: (_) => BaseScreen(),
                 settings: settings

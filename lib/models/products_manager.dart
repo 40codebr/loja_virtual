@@ -29,7 +29,7 @@ class ProductsManager extends ChangeNotifier {
     }
 
     return filteredProducts;
-  }
+  } 
 
   Future<void> _loadAllProducts() async {
     final QuerySnapshot snapProducts =

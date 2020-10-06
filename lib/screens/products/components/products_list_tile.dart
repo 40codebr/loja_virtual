@@ -9,6 +9,8 @@ class ProductListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final buttonColor = Theme.of(context).buttonColor;
+    
     return GestureDetector(
       onTap: (){
         Navigator.of(context).pushNamed('/product', arguments: product);
@@ -37,6 +39,7 @@ class ProductListTile extends StatelessWidget {
                       product.name,
                       style: TextStyle(
                         fontSize: 16,
+                        color: buttonColor,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
@@ -51,7 +54,7 @@ class ProductListTile extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'R\$ ${product.basePrice.toStringAsFixed(2)}',
+                      'R\$${product.basePrice.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w800,
@@ -64,8 +67,8 @@ class ProductListTile extends StatelessWidget {
                         child: Text(
                           'Sem estoque',
                           style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 10
+                            fontSize: 10,
+                            color: Colors.red
                           ),
                         ),
                       )

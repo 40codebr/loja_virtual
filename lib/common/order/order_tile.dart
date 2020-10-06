@@ -62,6 +62,8 @@ class OrderTile extends StatelessWidget {
             SizedBox(
               height: 50,
               child: ListView(
+                padding: EdgeInsets.symmetric(horizontal: 0),
+                physics: NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
                   FlatButton(
@@ -74,14 +76,21 @@ class OrderTile extends StatelessWidget {
                     },
                     textColor: Colors.red,
                     child: const Text('Cancelar'),
+                    minWidth: 5,
                   ),
                   FlatButton(
                     onPressed: order.back,
                     child: const Text('Recuar'),
+                    textColor: Colors.black,
+                    disabledTextColor: Colors.black38,
+                    minWidth: 5,
                   ),
                   FlatButton(
                     onPressed: order.advance,
                     child: const Text('Avançar'),
+                    textColor: Colors.black,
+                    disabledTextColor: Colors.black38,
+                    minWidth: 5,
                   ),
                   FlatButton(
                     onPressed: (){
@@ -89,7 +98,7 @@ class OrderTile extends StatelessWidget {
                         builder: (_) => ExportAddressDialog(order.address)
                       );
                     },
-                    textColor: primaryColor,
+                    textColor: Colors.black,
                     child: const Text('Endereço'),
                   )
                 ],

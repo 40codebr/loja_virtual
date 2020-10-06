@@ -48,7 +48,7 @@ class CustomDrawer extends StatelessWidget {
                         Container(
                           width: MediaQuery.of(context).size.width,
                           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
-                          color: Colors.grey[200],
+                          color: Colors.grey[900].withOpacity(.3),
                           child: Text('ADMINISTRAÇÃO'),
                         ),
                         DrawerTile(

@@ -10,7 +10,7 @@ class AdminOrdersManager extends ChangeNotifier {
   final List<Order> _orders = [];
 
   UserModel userFilter;
-  List<Status> statusFilter = [Status.preparing];
+  List<Status> statusFilter = [Status.preparing, Status.transporting];
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 

@@ -116,52 +116,50 @@ class SignUpScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    SizedBox(
-                      height: 44,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
-                        // borderOnForeground: true,
-                        child: RaisedButton(
-                          onPressed: userManager.loading ? null : () {
-                            if (formKey.currentState.validate()) {
-                              formKey.currentState.save();
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      // borderOnForeground: true,
+                      child: RaisedButton(
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        onPressed: userManager.loading ? null : () {
+                          if (formKey.currentState.validate()) {
+                            formKey.currentState.save();
 
-                              if (user.password != user.confirmPassword) {
+                            if (user.password != user.confirmPassword) {
+                              scaffoldKey.currentState.showSnackBar(
+                                SnackBar(
+                                  content: const Text('Senhas não coincidem'),
+                                  backgroundColor: Colors.black87,
+                                ),
+                              );
+                              return;
+                            }
+
+                            userManager.signUp(
+                              user: user,
+                              onSuccess: () {
+                                Navigator.of(context).pop();
+                              },
+                              onFail: (e) {
                                 scaffoldKey.currentState.showSnackBar(
                                   SnackBar(
-                                    content: const Text('Senhas não coincidem'),
-                                    backgroundColor: Colors.black87,
+                                    content: Text('Falha ao cadastrar, $e'),
+                                    backgroundColor: Colors.red.shade800,
                                   ),
                                 );
-                                return;
                               }
-
-                              userManager.signUp(
-                                user: user,
-                                onSuccess: () {
-                                  Navigator.of(context).pop();
-                                },
-                                onFail: (e) {
-                                  scaffoldKey.currentState.showSnackBar(
-                                    SnackBar(
-                                      content: Text('Falha ao cadastrar, $e'),
-                                      backgroundColor: Colors.red.shade800,
-                                    ),
-                                  );
-                                }
-                              );
-                            }
-                          },
-                          color: Theme.of(context).primaryColor,
-                          disabledColor:
-                              Theme.of(context).primaryColor.withAlpha(100),
-                          textColor: Colors.white,
-                          child: userManager.loading ? CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation(Colors.white),
-                          ) : Text(
-                            'Criar conta',
-                            style: TextStyle(fontSize: 16),
-                          ),
+                            );
+                          }
+                        },
+                        color: Theme.of(context).primaryColor,
+                        disabledColor:
+                            Theme.of(context).primaryColor.withAlpha(100),
+                        textColor: Colors.white,
+                        child: userManager.loading ? CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(Colors.white),
+                        ) : Text(
+                          'Criar conta',
+                          style: TextStyle(fontSize: 14),
                         ),
                       ),
                     )

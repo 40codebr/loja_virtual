@@ -14,6 +14,8 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
+    final buttonColor = Theme.of(context).buttonColor;
+
     return ChangeNotifierProvider.value(
       value: product,
       child: Scaffold(
@@ -27,7 +29,7 @@ class ProductScreen extends StatelessWidget {
             ),
             Consumer<UserManager>(
               builder: (_, userManager, __){
-                if(userManager.adminEnabled){
+                if(userManager.adminEnabled && !product.deleted){
                   return IconButton(
                     icon: Icon(Icons.edit),
                     onPressed: (){
@@ -64,8 +66,8 @@ class ProductScreen extends StatelessWidget {
                   Text(
                     product.name,
                     style: TextStyle(
-                      fontSize: 20,
-                      color: primaryColor,
+                      fontSize: 19,
+                      color: buttonColor,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -83,8 +85,8 @@ class ProductScreen extends StatelessWidget {
                   Text(
                     'R\$${product.basePrice.toStringAsFixed(2)}',
                     style: TextStyle(
-                      fontSize: 22,
-                      color: primaryColor,
+                      fontSize: 18,
+                      color: Colors.red[800],
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -103,25 +105,40 @@ class ProductScreen extends StatelessWidget {
                     product.description,
                     style: TextStyle(
                       fontSize: 16,
-                      color: primaryColor,
+                      color: buttonColor,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top:16.0, bottom: 8.0),
-                    child: Text(
-                      'Opções:',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w500,
+                  if(product.deleted)
+                    Padding(
+                      padding: const EdgeInsets.only(top:16.0, bottom: 8.0),
+                      child: Text(
+                        'Este produto não está mais disponíivel',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.red,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    )
+                  else
+                  ...[
+                    Padding(
+                      padding: const EdgeInsets.only(top:16.0, bottom: 8.0),
+                      child: Text(
+                        'Opções:',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
-                  ),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: product.sizes.map((s) => SizedWidth(size: s)).toList(),
-                  ),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: product.sizes.map((s) => SizedWidth(size: s)).toList(),
+                    )
+                  ],
                   const SizedBox(height: 40,),
                   product.hasStock ?
                   Consumer2<UserManager, Product>(
@@ -134,9 +151,9 @@ class ProductScreen extends StatelessWidget {
                             ? Icons.add_shopping_cart_outlined
                             : Icons.lock_open_outlined
                           ),
-                          disabledColor: primaryColor.withAlpha(100),
-                          color: primaryColor,
-                          textColor: Colors.white,
+                          // disabledColor: primaryColor.withAlpha(100),
+                          // color: Colors.red,
+                          // textColor: Colors.white,
                           label: Text(
                             userManager.isLogged
                               ? 'Adcionar ao carrinho'
@@ -151,7 +168,7 @@ class ProductScreen extends StatelessWidget {
                                   Navigator.of(context).pushNamed('/login');
                                 }
                               } 
-                              : null,
+                              : null
                         ),
                       );
                     }
