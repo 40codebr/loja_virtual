@@ -26,14 +26,46 @@ class LoginScreen extends StatelessWidget {
             key: formKey,
             child: Consumer<UserManager>(
               builder: (_, userManager, child) {
+                if (userManager.loadingFace) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation(
+                          Theme.of(context).primaryColor),
+                    ),
+                  );
+                }
                 return ListView(
                   padding: const EdgeInsets.all(16),
                   shrinkWrap: true,
                   children: [
                     TextFormField(
+                      style: TextStyle(color: Colors.black),
                       controller: emailController,
                       enabled: !userManager.loading,
-                      decoration: const InputDecoration(hintText: 'Email'),
+                      autofocus: true,
+                      decoration: const InputDecoration(
+                        hintText: 'Email',
+                        hintStyle: TextStyle(color: Colors.grey),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red, width: 1.0),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red, width: 1.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.greenAccent, width: 1.0),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red, width: 1.0),
+                        ),
+                        border: OutlineInputBorder(
+                          // borderRadius: BorderRadius.all(Radius.circular(30)),
+                          borderSide: BorderSide(color: Colors.red, width: 1.0),
+                        ),
+                      ),
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
                       validator: (email) {
@@ -45,7 +77,25 @@ class LoginScreen extends StatelessWidget {
                     TextFormField(
                       controller: passController,
                       enabled: !userManager.loading,
-                      decoration: const InputDecoration(hintText: 'Senha'),
+                      decoration: const InputDecoration(
+                        hintText: 'Senha',
+                        hintStyle: TextStyle(color: Colors.grey),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red, width: 1.0),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red, width: 1.0),
+                        ),
+                      ),
                       obscureText: true,
                       autocorrect: false,
                       validator: (pass) {
@@ -70,7 +120,7 @@ class LoginScreen extends StatelessWidget {
                                     scaffoldKey.currentState.showSnackBar(
                                       SnackBar(
                                         content: Text('Falha ao entrar, $e'),
-                                        backgroundColor: Colors.black87,
+                                        backgroundColor: Colors.red,
                                       ),
                                     );
                                   },
@@ -86,8 +136,7 @@ class LoginScreen extends StatelessWidget {
                       textColor: Colors.white,
                       child: userManager.loading
                           ? CircularProgressIndicator(
-                              valueColor:
-                                  AlwaysStoppedAnimation(Colors.white),
+                              valueColor: AlwaysStoppedAnimation(Colors.white),
                             )
                           : const Text(
                               'Entrar',
@@ -99,13 +148,14 @@ class LoginScreen extends StatelessWidget {
                     SignInButton(
                       Buttons.Facebook,
                       text: 'Entrar com Facebook',
-                      onPressed: (){
+                      onPressed: () {
                         userManager.facebookLogin(
                           onFail: (e) {
                             scaffoldKey.currentState.showSnackBar(
                               SnackBar(
+                                duration: Duration(milliseconds: 5000),
                                 content: Text('Falha ao entrar, $e'),
-                                backgroundColor: Colors.black87,
+                                backgroundColor: Colors.red,
                               ),
                             );
                           },

@@ -133,6 +133,7 @@ class StoreCard extends StatelessWidget {
                         store.name,
                         style: TextStyle(
                           fontWeight: FontWeight.w800,
+                          color: Colors.black,
                           fontSize: 17,
                         ),
                       ),
@@ -140,10 +141,16 @@ class StoreCard extends StatelessWidget {
                         store.addressText,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                          fontSize: 14,
+                        ),
                       ),
                       Text(
                         store.openingText,
                         style: const TextStyle(
+                          color: Colors.black,
                           fontSize: 12,
                         ),
                       ),
