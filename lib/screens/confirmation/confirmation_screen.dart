@@ -12,7 +12,6 @@ class ConfirmationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: CustomDrawer(),
       appBar: AppBar(
         title: const Text('Pedido Confirmado'),
         centerTitle: true,

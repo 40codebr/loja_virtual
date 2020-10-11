@@ -107,7 +107,24 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Loja virtual',
-        theme: base,
+        // theme: base,
+        theme: ThemeData(
+          primaryColor: const Color.fromARGB(255, 4, 125, 141),
+          appBarTheme: AppBarTheme(
+            centerTitle: true,
+            elevation: 0,
+          ),
+          scaffoldBackgroundColor: Color(0xFFE5E8EF),
+          buttonColor: Color(0xFF15130F),
+          buttonTheme: ButtonThemeData(
+            buttonColor: Color(0xFF15130F),
+            disabledColor: Color(0xFF15130F).withAlpha(100),
+            textTheme: ButtonTextTheme.normal,
+            shape: BeveledRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
+          ),
+        ),
         onGenerateRoute: (settings) {
           switch(settings.name) {
             case '/signup':

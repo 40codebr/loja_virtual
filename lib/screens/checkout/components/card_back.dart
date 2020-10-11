@@ -18,7 +18,21 @@ class CardBack extends StatelessWidget {
       elevation: 16,
       child: Container(
         height: 200,
-        color: const Color(0xFF1B4B52),
+        decoration: BoxDecoration(
+          color: const Color(0xFF1B4B52),
+          gradient: LinearGradient(
+            colors: [
+              /* Colors.purple,
+              Colors.deepPurple,
+              Color(0xffFFB775),
+              Color(0xffD736FF), */
+              Color(0xff98B4E9),
+              Color(0xff9C1FFF),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          )
+        ),
         child: Column(
           children: <Widget>[
             Container(
@@ -39,7 +53,7 @@ class CardBack extends StatelessWidget {
                       hint: '123',
                       maxLength: 3,
                       inputFormatters: [
-                        WhitelistingTextInputFormatter.digitsOnly,
+                        FilteringTextInputFormatter.digitsOnly,
                       ],
                       textAlign: TextAlign.end,
                       textInputType: TextInputType.number,

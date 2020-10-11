@@ -37,7 +37,7 @@ class CardTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FormField<String>(
-      initialValue: initialValue,
+      initialValue: '',
       validator: validator,
       onSaved: onSaved,
       builder: (state){

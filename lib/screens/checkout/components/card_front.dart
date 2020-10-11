@@ -2,6 +2,7 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:credit_card_type_detector/credit_card_type_detector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loja_virtual/models/credit_card.dart';
 import 'package:loja_virtual/screens/checkout/components/card_text_field.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -22,6 +23,21 @@ class CardFront extends StatelessWidget {
 
   final CreditCard creditCard;
 
+  IconData renderCreditCardIconUI(String creditCardNumber) {
+    var icons;
+    var type = detectCCType(creditCardNumber);
+    print(type);
+    if (type == CreditCardType.visa) {
+      return icons = FontAwesomeIcons.ccVisa;
+    } else if (type == CreditCardType.mastercard) {
+      return icons = FontAwesomeIcons.ccMastercard;
+    } else if (type == CreditCardType.unknown) {
+      return icons = FontAwesomeIcons.solidCreditCard;
+    } else {
+      return icons = FontAwesomeIcons.solidCreditCard;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -30,7 +46,21 @@ class CardFront extends StatelessWidget {
       elevation: 16,
       child: Container(
         height: 200,
-        color: const Color(0xFF1B4B52),
+        decoration: BoxDecoration(
+          color: const Color(0xFF1B4B52),
+          gradient: LinearGradient(
+            colors: [
+              /* Colors.purple,
+              Colors.deepPurple,
+              Color(0xffFFB775),
+              Color(0xffD736FF), */
+              Color(0xff98B4E9),
+              Color(0xff9C1FFF),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          )
+        ),
         padding: const EdgeInsets.all(24),
         child: Row(
           children: <Widget>[
@@ -45,7 +75,7 @@ class CardFront extends StatelessWidget {
                     textInputType: TextInputType.number,
                     bold: true,
                     inputFormatters: [
-                      WhitelistingTextInputFormatter.digitsOnly,
+                      FilteringTextInputFormatter.digitsOnly,
                       CartaoBancarioInputFormatter()
                     ],
                     validator: (number){
