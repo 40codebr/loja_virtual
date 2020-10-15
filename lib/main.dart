@@ -81,27 +81,25 @@ class MyApp extends StatelessWidget {
           create: (_) => CartManager(),
           lazy: false,
           update: (_, userManager, cartManager) =>
-            cartManager..updateUser(userManager),
+              cartManager..updateUser(userManager),
         ),
         ChangeNotifierProxyProvider<UserManager, OrdersManager>(
           create: (_) => OrdersManager(),
           lazy: false,
           update: (_, userManager, ordersManager) =>
-            ordersManager..updateUser(userManager.user),
+              ordersManager..updateUser(userManager.user),
         ),
         ChangeNotifierProxyProvider<UserManager, AdminUsersManager>(
           create: (_) => AdminUsersManager(),
           lazy: false,
           update: (_, userManager, adminUsersManager) =>
-            adminUsersManager..updateUser(userManager),
+              adminUsersManager..updateUser(userManager),
         ),
         ChangeNotifierProxyProvider<UserManager, AdminOrdersManager>(
           create: (_) => AdminOrdersManager(),
           lazy: false,
-          update: (_, userManager, adminOrdersManager) =>
-            adminOrdersManager..updateAdmin(
-              adminEnabled: userManager.adminEnabled
-            ),
+          update: (_, userManager, adminOrdersManager) => adminOrdersManager
+            ..updateAdmin(adminEnabled: userManager.adminEnabled),
         )
       ],
       child: MaterialApp(
@@ -121,64 +119,41 @@ class MyApp extends StatelessWidget {
             disabledColor: Color(0xFF15130F).withAlpha(100),
             textTheme: ButtonTextTheme.normal,
             shape: BeveledRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-              ),
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
           ),
         ),
         onGenerateRoute: (settings) {
-          switch(settings.name) {
+          switch (settings.name) {
             case '/signup':
-              return MaterialPageRoute(
-                builder: (_) => SignUpScreen()
-              );
+              return MaterialPageRoute(builder: (_) => SignUpScreen());
             case '/login':
-              return MaterialPageRoute(
-                builder: (_) => LoginScreen()
-              );
+              return MaterialPageRoute(builder: (_) => LoginScreen());
             case '/product':
               return MaterialPageRoute(
-                builder: (_) => ProductScreen(
-                  settings.arguments as Product
-                )
-              );
+                  builder: (_) => ProductScreen(settings.arguments as Product));
             case '/edit_product':
               return MaterialPageRoute(
-                builder: (_) => EditProductScreen(
-                  settings.arguments as Product
-                )
-              );
+                  builder: (_) =>
+                      EditProductScreen(settings.arguments as Product));
             case '/select_product':
-              return MaterialPageRoute(
-                builder: (_) => SelectProductScreen()
-              );
+              return MaterialPageRoute(builder: (_) => SelectProductScreen());
             case '/cart':
               return MaterialPageRoute(
-                builder: (_) => CartScreen(),
-                settings: settings
-              );
+                  builder: (_) => CartScreen(), settings: settings);
             case '/address':
-              return MaterialPageRoute(
-                builder: (_) => AddressScreen()
-              );
+              return MaterialPageRoute(builder: (_) => AddressScreen());
             case '/checkout':
-              return MaterialPageRoute(
-                builder: (_) => CheckoutScreen()
-              );
+              return MaterialPageRoute(builder: (_) => CheckoutScreen());
             case '/confirmation':
               return MaterialPageRoute(
-                builder: (_) => ConfirmationScreen(
-                  settings.arguments as Order
-                ),
+                builder: (_) => ConfirmationScreen(settings.arguments as Order),
               );
             case '/':
               return MaterialPageRoute(
-                builder: (_) => BaseScreen(),
-                settings: settings
-              );
+                  builder: (_) => BaseScreen(), settings: settings);
             default:
-              return MaterialPageRoute(
-                builder: (_) => BaseScreen()
-              );
+              return MaterialPageRoute(builder: (_) => BaseScreen());
           }
         },
       ),
